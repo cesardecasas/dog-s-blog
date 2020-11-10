@@ -52,6 +52,6 @@ You can find the deployed link [here]()
 
 ***
 
-### Credits
+### Screenshots
 
 Loading...
