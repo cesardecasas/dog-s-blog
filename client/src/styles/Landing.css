@@ -1,0 +1,127 @@
+.landing-page {
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .landing-page .left {
+    border-radius: 0 4em 4em 0;
+    position: relative;
+    display: flex;
+    box-shadow: 10px 2px 10px rgba(0, 0, 0, 0.2);
+  }
+  .left .mask {
+    position: absolute;
+    border-radius: inherit;
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    color: #eee;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .left .logo {
+    font-size: 1.3rem;
+  }
+  
+  .left .content-wrapper {
+    width: 80%;
+    height: 50%;
+    justify-content: space-between;
+    margin-top: 1em;
+  }
+  
+  .hero-wrapper {
+    padding: 4em 0;
+    align-self: center;
+    height: 60vh;
+  }
+  .cl-right,
+  .cl-left {
+    height: 100%;
+  }
+  .cl-left {
+    justify-content: flex-end;
+  }
+  .cl-right {
+    justify-content: flex-start;
+  }
+  
+
+  
+  .path-wrapper img {
+    position: relative;
+    width: 300px;
+    height: 200px;
+  }
+  
+
+  
+  .left .img-wrapper {
+    border-radius: 0 4em 4em 0;
+    height: 100%;
+  }
+  .left .img-wrapper img {
+    border-radius: inherit;
+    width: 100%;
+    height: inherit;
+  }
+  .right .content-wrapper {
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+    margin: auto;
+    padding: 0;
+  }
+  .right .content {
+    width: 80%;
+    height: 70%;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .content form,
+  .content input {
+    flex: 1;
+    width: 90%;
+    margin: auto;
+  }
+  
+  .content input {
+    width: 100%;
+  }
+  
+  .right .discover {
+    flex: 2;
+    width: 90%;
+  }
+  
+  .discover h4 {
+    margin-left: 1em;
+    color: #ff7043;
+  }
+  
+  .discover .card-wrapper {
+    width: 95%;
+    max-width: 95%;
+    margin: 0 auto;
+    justify-content: flex-start;
+    overflow-x: scroll;
+    padding: 0.5em 1em;
+  }
+  
+  .flex-lg {
+    flex: 2;
+  }
+  
+  .flex-sm {
+    flex: 1;
+  }
+
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .flex-col {
+    display: flex;
+    flex-direction: column;
+  }
