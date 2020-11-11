@@ -9,4 +9,4 @@ const User = new Schema(
     },{timestamps:true}
 )
 
-modules.export= model('users', User)
+module.exports = model('users', User)

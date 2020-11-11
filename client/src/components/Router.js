@@ -4,6 +4,7 @@ import Login from '../pages/Login'
 import Singup from '../pages/Signup'
 import Landing from '../pages/Landing'
 import AboutUs from '../pages/AboutUs'
+import {__CheckSession} from '../services/UserServices'
 
 
 class Router extends Component{
@@ -19,6 +20,32 @@ class Router extends Component{
 
     }
 
+
+    verifyTokenValid = async () => {
+        const token = localStorage.getItem('token')
+        if (token) {
+          try {
+            const session = await __CheckSession()
+            console.log('session', session)
+            this.setState(
+              {
+                currentUser: session.user,
+                authenticated: true
+              },
+              () => this.props.history.push('/profile')
+            )
+          } catch (error) {
+            this.setState({ currentUser: null, authenticated: false })
+            localStorage.clear()
+          }
+        }
+      }
+
+      toggleAuthenticated = (value, user, done) => {
+        this.setState({ authenticated: value, currentUser: user }, () => done())
+      }
+
+
     render(){
         return(
             <div>
@@ -30,7 +57,7 @@ class Router extends Component{
                     )}/>
                     <Route  path='/login' component={(props)=>(
                         <Landing>
-                            <Login/>
+                            <Login toggleAuthenticated={this.toggleAuthenticated}/>
                         </Landing>
                     )}/>
                     <Route extact path='/singup' component={(props)=>(
@@ -44,4 +71,4 @@ class Router extends Component{
     }
 }
 
-export default Router
+export default withRouter(Router)

@@ -6,7 +6,7 @@ const {
   verifyToken
 } = require('../middleware/JwtHandler')
 
-Router.get('/:user_id', UserController.GetProfile)
+Router.get('/find', UserController.Find)
 Router.post('/register', UserController.CreateUser)
 Router.post('/login', UserController.SignInUser, createToken)
 Router.get(

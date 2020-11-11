@@ -1,4 +1,4 @@
-const { User } = require('../db/schema')
+const User  = require('../db/models/User')
 const jwt = require('jsonwebtoken')
 const {
   checkPassword,
@@ -19,6 +19,11 @@ const CreateUser = async (req, res) => {
   } catch (error) {
     throw error
   }
+}
+
+const Find = async(req,res)=>{
+  const users = await User.find()
+  res.send(users)
 }
 
 const SignInUser = async (req, res, next) => {
@@ -52,8 +57,8 @@ const RefreshSession = (req, res) => {
 }
 
 module.exports = {
-  GetProfile,
   CreateUser,
   SignInUser,
-  RefreshSession
+  RefreshSession,
+  Find
 }

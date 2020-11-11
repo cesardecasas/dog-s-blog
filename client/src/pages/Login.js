@@ -1,5 +1,6 @@
 import {Component} from 'react'
 import TextInput from '../components/TextInput'
+import {__LoginUser} from '../services/UserServices'
 import '../styles/Forms.css'
 
 export default class Login extends Component{
@@ -7,13 +8,26 @@ export default class Login extends Component{
         super()
         this.state={
             email:'',
-            password:''
+            password:'',
+            formError:false
         }
     }
 
     handleChange = ({ target }) => {
         this.setState({ [target.name]: target.value, formError: false })
     }
+
+    handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+          const loginData = await __LoginUser(this.state)
+          this.props.toggleAuthenticated(true, loginData.user, () =>
+            this.props.history.push('/profile')
+          )
+        } catch (error) {
+          this.setState({ formError: true })
+        }
+      }
 
     render(){
         const {email, password} = this.state 
