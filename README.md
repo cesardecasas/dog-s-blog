@@ -55,3 +55,5 @@ You can find the deployed link [here]()
 ### Screenshots
 
 ![home](./readImgs/1.png)
+
+![Singup](./readImgs/2.png)
