@@ -1,6 +1,7 @@
 import {Component} from 'react'
 import TextInput from '../components/TextInput'
 import '../styles/Forms.css'
+import {__RegisterUser} from '../services/UserServices'
 
 export default class Login extends Component{
     constructor(){
@@ -16,11 +17,21 @@ export default class Login extends Component{
         this.setState({ [target.name]: target.value })
     }
 
+    handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+          await __RegisterUser(this.state)
+          this.props.history.push('/login')
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
     render(){
         const {email, password, name} = this.state 
         return (
             <div className="signup flex-col">
-                <form className="flex-col">
+                <form className="flex-col" onSubmit={this.handleSubmit}>
                     <TextInput 
                         placeholder='Your Name'
                         type='text'

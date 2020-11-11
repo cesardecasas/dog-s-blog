@@ -17,7 +17,7 @@ class Router extends Component{
     }
 
     componentDidMount(){
-
+        this.verifyTokenValid()
     }
 
 
@@ -57,12 +57,15 @@ class Router extends Component{
                     )}/>
                     <Route  path='/login' component={(props)=>(
                         <Landing>
-                            <Login toggleAuthenticated={this.toggleAuthenticated}/>
+                            <Login 
+                                toggleAuthenticated={this.toggleAuthenticated}
+                                {...props}
+                                />
                         </Landing>
                     )}/>
                     <Route extact path='/singup' component={(props)=>(
                         <Landing>
-                            <Singup/>
+                            <Singup {...props}/>
                         </Landing>
                     )}/>
                 </Switch>

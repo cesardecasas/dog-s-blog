@@ -3,6 +3,7 @@ import Dog from '../Imgs/maxresdefault.jpg'
 import Nav from '../components/Nav'
 import '../styles/Landing.css'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default ({ children }) => {
     return (
       <div className="landing-page flex-row">
