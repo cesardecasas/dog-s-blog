@@ -54,4 +54,4 @@ You can find the deployed link [here]()
 
 ### Screenshots
 
-Loading...
+![home](./readImgs/1.png)
