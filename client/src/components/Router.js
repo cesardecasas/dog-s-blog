@@ -8,7 +8,7 @@ import {__CheckSession} from '../services/UserServices'
 import ProtectedRoute from './ProtectedRoute'
 import Layout from './Layout'
 import Profile from '../pages/Profile'
-
+import Feed from '../pages/Feed'
 
 class Router extends Component{
     constructor(){
@@ -79,6 +79,17 @@ class Router extends Component{
                                     currentUser={this.state.currentUser}
                             >
                                 <Profile/>
+                            </Layout>
+                        )}
+                    />
+                    <ProtectedRoute
+                        authenticated={this.state.authenticated}
+                        path='/feed'
+                        component={(props)=>(
+                            <Layout authenticated={this.state.authenticated}
+                                    currentUser={this.state.currentUser}
+                            >
+                                <Feed/>
                             </Layout>
                         )}
                     />

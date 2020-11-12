@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Card extends Component{
-    render(){
+const Card = ()=>{
+    
         return(
         <div className="card" style={{width: 180}}>
             <div className='row user'>
@@ -16,7 +16,7 @@ class Card extends Component{
         </div>
 
         )
-    }
+    
 }
 
 export default Card

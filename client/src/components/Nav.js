@@ -8,13 +8,13 @@ export default ({authenticated, currentUser, className}) =>{
 
             <header className={className}>
                 <nav>
-                    <NavLink to='profile'>
+                    <NavLink to='/profile'>
                         Profile
                     </NavLink>
                     <NavLink to='/pet'>
                         My Pet
                     </NavLink>
-                    <NavLink to='/discover'>
+                    <NavLink to='/feed'>
                         Feed
                     </NavLink>
                     <NavLink
