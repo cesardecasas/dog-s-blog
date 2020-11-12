@@ -1,14 +1,17 @@
     import React, { Component } from 'react'
     import '../styles/Feed.css'
     import Card from '../components/Card'
-    import {__GetPosts} from '../services/PostsServices'
+    import {__GetPosts, __UploadPost} from '../services/PostsServices'
+    import TextInput from '../components/TextInput'
 
     class Feed extends Component{
     constructor(){
         super()
         this.state={
             posts:[],
-            currentPage:1
+            currentPage:1,
+            image_url:'',
+            description:''
         }
     }
 
@@ -23,12 +26,42 @@
         } catch (error) {
             console.log(error)
         }
+    }
+
+    handleChange = ({ target }) => {
+        this.setState({ [target.name]: target.value })
+      }
+
+    handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+          await __UploadPost(this.state, this.props.currentUser._id)
+          this.props.history.push('/feed')
+        } catch (error) {
+          console.log(error)
         }
+    }
 
     render(){
         return (
             <div className='feed'>
                 <main>
+                    <form onSubmit={this.handleSubmit} className='form-group'>
+                        <p>Create Post</p>
+                        <TextInput 
+                            placeholder='Image URL'
+                            name='url'
+                            value={this.state.image_url}
+                            onChange={this.handleChange}
+                        />
+                        <TextInput 
+                            placeholder='Description'
+                            name='description'
+                            value={this.state.description}
+                            onChange={this.handleChange}
+                        />
+                        <button type='button' className='btn btn-primary btn-sm'>Create</button>
+                    </form>
                     {this.state.posts.map((post)=>(
                         <Card key={post._id}>
                                     <div className="card post" style={{width: 400}}>
