@@ -5,6 +5,9 @@ import Singup from '../pages/Signup'
 import Landing from '../pages/Landing'
 import AboutUs from '../pages/AboutUs'
 import {__CheckSession} from '../services/UserServices'
+import ProtectedRoute from './ProtectedRoute'
+import Layout from './Layout'
+import Profile from '../pages/Profile'
 
 
 class Router extends Component{
@@ -68,6 +71,17 @@ class Router extends Component{
                             <Singup {...props}/>
                         </Landing>
                     )}/>
+                    <ProtectedRoute
+                        authenticated={this.state.authenticated}
+                        path='/profile'
+                        component={(props)=>(
+                            <Layout authenticated={this.state.authenticated}
+                                    currentUser={this.state.currentUser}
+                            >
+                                <Profile/>
+                            </Layout>
+                        )}
+                    />
                 </Switch>
             </div>
         )
