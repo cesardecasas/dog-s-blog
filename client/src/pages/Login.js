@@ -33,7 +33,8 @@ export default class Login extends Component{
         const {email, password} = this.state 
         return (
             <div className="signin flex-col">
-                <form className="flex-col" onSubmit={this.handleSubmit}>
+                <form className="flex-col box" onSubmit={this.handleSubmit}>
+                    <h3>Log In</h3>
                     {this.state.formError ? <p className='alert alert-danger'>Invalid credentials</p> : <p></p>}
                     <TextInput 
                         placeholder='Your Email'

@@ -1,0 +1,18 @@
+.template{
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+}
+
+.content{
+    grid-column: 2;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.profilepic{
+    grid-column: 2;
+    justify-self: center;
+    align-self: center;
+}

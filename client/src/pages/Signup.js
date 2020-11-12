@@ -31,7 +31,8 @@ export default class Login extends Component{
         const {email, password, name} = this.state 
         return (
             <div className="signup flex-col">
-                <form className="flex-col" onSubmit={this.handleSubmit}>
+                <form className="flex-col box" onSubmit={this.handleSubmit}>
+                    <h3>Sing Up</h3>
                     <TextInput 
                         placeholder='Your Name'
                         type='text'

@@ -1,0 +1,24 @@
+.feed{
+    display: grid;
+    grid-template-columns: 30% 40% 30%;
+    
+}
+
+main{
+        grid-column: 2;
+        display: grid;
+        
+}
+
+.card{
+    padding: 10px;
+}
+
+.postBody{
+    justify-self: center;
+}
+
+.post{
+    justify-self: center;
+
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../styles/Feed.css'
+import Card from '../components/Card'
 
 class Feed extends Component{
     constructor(){
@@ -16,7 +17,11 @@ class Feed extends Component{
     render(){
         return (
             <div className='feed'>
-                <h1>Feed</h1>
+                <main>
+                    <h1 className='post'>Feed</h1>
+                    <Card/>
+                    <Card/>
+                </main>
             </div>
         )
     }

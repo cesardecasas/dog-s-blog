@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import Card from '../components/Card'
+import '../styles/Profile.css'
+
 
 export default class Profile extends Component{
     constructor(){
@@ -15,19 +16,15 @@ export default class Profile extends Component{
 
     render(){
         return(
-            <div className="container">
-            <div className="row">
-              <div className="col-sm">
-                One of three columns
-              </div>
-              <div className="col-sm">
-                <h3>Welcome</h3>
-                <Card/>
-              </div>
-              <div className="col-sm">
-                One of three columns
-              </div>
-            </div>
+            <div className='template'>
+              <main className='content'>
+                  <img  
+                    src='https://vignette.wikia.nocookie.net/character-stats-and-profiles/images/7/7a/Ike_(Path_Of_Radiance).png/revision/latest?cb=20200612075834' 
+                    alt='profile pic'
+                    className='img-thumbnail'
+                  />
+                  <h4 className='profilepic'>name</h4>
+              </main>
           </div>
         )
     }
