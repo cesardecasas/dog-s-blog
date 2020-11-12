@@ -4,7 +4,7 @@ import '../styles/Header.css'
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({authenticated, currentUser, className}) =>{
-    return (
+    return authenticated && currentUser ?  (
         <header className={className}>
             <nav>
                 <NavLink to='/'>
@@ -18,5 +18,17 @@ export default ({authenticated, currentUser, className}) =>{
                 </NavLink>
             </nav>
         </header>
+    ) : (
+        <nav>
+            <NavLink to='profile'>
+                Profile
+            </NavLink>
+            <NavLink to='/pet'>
+                My Pet
+            </NavLink>
+            <NavLink to='/discover'>
+                Feed
+            </NavLink>
+        </nav>
     )
 }
