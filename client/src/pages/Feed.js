@@ -3,6 +3,7 @@
     import Card from '../components/Card'
     import {__GetPosts, __UploadPost} from '../services/PostsServices'
     import TextInput from '../components/TextInput'
+    import '../styles/CreatePost.css'
 
     class Feed extends Component{
     constructor(){
@@ -36,7 +37,7 @@
         e.preventDefault()
         try {
           await __UploadPost(this.state, this.props.currentUser._id)
-          this.props.history.push('/feed')
+          this.props.history.push('/profile')
         } catch (error) {
           console.log(error)
         }
@@ -46,11 +47,12 @@
         return (
             <div className='feed'>
                 <main>
-                    <form onSubmit={this.handleSubmit} className='form-group'>
+                    <br/>
+                    <form onSubmit={this.handleSubmit} className='flex-col box'>
                         <p>Create Post</p>
                         <TextInput 
                             placeholder='Image URL'
-                            name='url'
+                            name='image_url'
                             value={this.state.image_url}
                             onChange={this.handleChange}
                         />
@@ -60,8 +62,9 @@
                             value={this.state.description}
                             onChange={this.handleChange}
                         />
-                        <button type='button' className='btn btn-primary btn-sm'>Create</button>
+                        <button className='btn btn-primary btn-sm'>Create</button>
                     </form>
+                    <br/>
                     {this.state.posts.map((post)=>(
                         <Card key={post._id}>
                                     <div className="card post" style={{width: 400}}>
