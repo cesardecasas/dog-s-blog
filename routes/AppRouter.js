@@ -4,6 +4,6 @@ const UserRouter = require('./UserRouter')
 const PostRouter = require('./PostRouter')
 
 Router.use('/users', UserRouter)
-Router.use('/post', PostRouter)
+Router.use('/posts', PostRouter)
 
 module.exports = Router
