@@ -2,11 +2,7 @@ const {Schema, model} =require('mongoose')
 
 const Post =  new Schema(
     {
-      title: {
-        type: String,
-        required: true
-      },
-      popularity_rating: {
+      likes: {
         type: Number,
         default: 0,
         required: true
@@ -16,10 +12,8 @@ const Post =  new Schema(
         required: true
       },
       image_url: {
-        type: String
-      },
-      location: {
-        type: String
+        type: String,
+        required:true
       },
       user_id: {
         type: Schema.Types.ObjectId,

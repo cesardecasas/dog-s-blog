@@ -10,7 +10,7 @@ const GetPosts = async (req, res) => {
       const posts = await Post.find()
         .limit(parseInt(limit))
         .skip(offset)
-        .sort({ popularity_rating: 'desc' })
+        .sort({ likes: 'desc' })
       res.send(posts)
     } catch (error) {
       throw error
