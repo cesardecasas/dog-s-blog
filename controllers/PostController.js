@@ -7,10 +7,18 @@ const GetPosts = async (req, res) => {
       const { page, limit } = req.query
       const offset =
         page === '1' ? 0 : Math.floor(parseInt(page) * parseInt(limit))
-      const posts = await Post.find()
+      const posts = await Post.find({})
         .limit(parseInt(limit))
         .skip(offset)
         .sort()
+        .populate([
+          {
+            path: 'user_id',
+            model: 'users',
+            select: 'name'
+          }
+          ])
+        
       res.send(posts)
     } catch (error) {
       throw error
@@ -23,7 +31,7 @@ const GetPosts = async (req, res) => {
         {
           model: 'users',
           path: 'user_id',
-          select: '_id name'
+          select: 'name'
         },
         {
           path: 'comments',

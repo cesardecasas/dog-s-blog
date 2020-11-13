@@ -40,6 +40,9 @@ main{
 
 .user{
     grid-row: 1;
+    justify-self: normal;
 }
 
-
+.userName{
+    justify-self: start;
+}

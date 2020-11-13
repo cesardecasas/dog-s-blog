@@ -68,9 +68,9 @@
                     <br/>
                     {this.state.posts.map((post)=>(
                         <Card key={post._id}>
-                                    <div className="card post" style={{width: 400}}>
+                                    <div className="card post" style={{width: 475}}>
                                         <div className='row user'>
-                                            <h6>{post.user_id}</h6>
+                                            <h6 className='userName'>{post.user_id.name}</h6>
                                         </div>
                                         <img src={post.image_url} className="card-img-top img-thumbnail" alt="ike"/>
                                         <div className="card-body">

@@ -9,6 +9,7 @@ import ProtectedRoute from './ProtectedRoute'
 import Layout from './Layout'
 import Profile from '../pages/Profile'
 import Feed from '../pages/Feed'
+import MyPet from '../pages/MyPet'
 
 class Router extends Component{
     constructor(){
@@ -93,6 +94,18 @@ class Router extends Component{
                             </Layout>
                         )}
                     />
+                    <ProtectedRoute 
+                        authenticated={this.state.authenticated}
+                        path='/pet'
+                        component={(props)=>(
+                            <Layout 
+                                authenticated={this.state.authenticated}
+                                currentUser={this.state.currentUser}
+                            >
+                                <MyPet/>
+                            </Layout>
+                        )}
+                    /> 
                 </Switch>
             </div>
         )
