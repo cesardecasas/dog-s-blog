@@ -1,5 +1,5 @@
 import React from 'react'
-import Dog from '../Imgs/maxresdefault.jpg'
+import Carousel from '../components/Carousel'
 import Nav from '../components/Nav'
 import '../styles/Landing.css'
 
@@ -10,7 +10,6 @@ export default ({ children }) => {
         <section className="left flex-sm flex-col">
           <div className="mask flex-col">
             <div className="content-wrapper flex-col">
-              <h3 className="logo">Logo</h3>
               <div className="hero-wrapper flex-row">
                 <div className="cl-left flex-col">
                   
@@ -24,7 +23,7 @@ export default ({ children }) => {
             </div>
           </div>
           <div className="img-wrapper">
-            <img src={Dog} alt="Doggies" />
+            <Carousel/>
           </div>
         </section>
         <section className="right flex-sm">

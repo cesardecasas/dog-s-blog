@@ -54,6 +54,10 @@
     height: 200px;
   }
   
+  .carousel-item{
+    height:100%;
+    border-radius: 0 4em 4em 0;
+  }
 
   
   .left .img-wrapper {

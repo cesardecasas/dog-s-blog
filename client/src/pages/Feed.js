@@ -70,6 +70,7 @@
                         <Card key={post._id}>
                                     <div className="card post" style={{width: 475}}>
                                         <div className='row user'>
+                                            <img src={post.user_id.profile} alt='profile pic' style={{width: 25}}/>
                                             <h6 className='userName'>{post.user_id.name}</h6>
                                         </div>
                                         <img src={post.image_url} className="card-img-top img-thumbnail" alt="ike"/>

@@ -15,7 +15,7 @@ const GetPosts = async (req, res) => {
           {
             path: 'user_id',
             model: 'users',
-            select: 'name'
+            select: 'name profile'
           }
           ])
         
@@ -31,7 +31,7 @@ const GetPosts = async (req, res) => {
         {
           model: 'users',
           path: 'user_id',
-          select: 'name'
+          select: '_id name'
         },
         {
           path: 'comments',
@@ -60,6 +60,7 @@ const GetPosts = async (req, res) => {
   
   const DeletePost = async (req, res) => {
     try {
+      const post = await Post.findById(req.params,post_id)
       await Comment.deleteMany({ _id: { $in: post.comments } })
       await Post.findByIdAndDelete(req.params.post_id)
       res.send({ msg: 'Post deleted' })
@@ -70,7 +71,8 @@ const GetPosts = async (req, res) => {
   
   const UpdatePost = async (req, res) => {
     try {
-      await Post.findByIdAndUpdate(
+      
+      const updatedPost = await Post.findByIdAndUpdate(
         req.params.post_id,
         {
           ...req.body
