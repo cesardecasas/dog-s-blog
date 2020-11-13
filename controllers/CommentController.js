@@ -34,6 +34,7 @@ const CreateComment = async (req, res) => {
     }catch(err){
       throw err
     }
+  }
   
   const UpdateComment = async (req, res) => {
     try {
