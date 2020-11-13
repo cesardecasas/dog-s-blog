@@ -35,7 +35,7 @@ export default ({authenticated, currentUser, className}) =>{
     <header className='header'>
         <nav>
             <NavLink to='/'>
-                Home
+                About Us
             </NavLink>
             <NavLink to="/singup">
                 Sing Up

@@ -1,0 +1,28 @@
+.about-us{
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    background-color: white;
+    border-radius: 1.5rem;
+    box-shadow: rgba(0, 0, 0, 0.377);
+}
+
+.title{
+    padding: 5px;
+}
+
+.description{
+    grid-row: 2;
+    padding: 10px;
+    justify-content: center;
+}
+
+.sc{
+    grid-row: 3;
+    width: 80%;
+    justify-self: center;
+    padding: 10px;
+}
+
+.thank{
+    padding: 15px;
+}
