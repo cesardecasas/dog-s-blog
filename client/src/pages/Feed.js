@@ -38,6 +38,7 @@
         try {
           await __UploadPost(this.state, this.props.currentUser._id)
           this.props.history.push('/profile')
+          
         } catch (error) {
           console.log(error)
         }
@@ -69,12 +70,12 @@
                         <Card key={post._id}>
                                     <div className="card post" style={{width: 400}}>
                                         <div className='row user'>
-                                            <h6>{post.user_id.name}</h6>
+                                            <h6>{post.user_id}</h6>
                                         </div>
                                         <img src={post.image_url} className="card-img-top img-thumbnail" alt="ike"/>
                                         <div className="card-body">
                                             <p className="card-text">{post.description}</p>
-                                            <p>{post.likes}</p>
+                                            <p className='like'>{post.likes} liked this post</p>
                                         </div>
                                     </div>
                                     <br/>
