@@ -4,6 +4,7 @@ const {
   checkPassword,
   generatePassword
 } = require('../middleware/PasswordHandler')
+const { read } = require('fs')
 
 const CreateUser = async (req, res) => {
   try {
@@ -24,6 +25,11 @@ const CreateUser = async (req, res) => {
 const Find = async(req,res)=>{
   const users = await User.find()
   res.send(users)
+}
+
+const FindById = async(req,res)=>{
+  const user = await User.findById(req.params.user_id)
+  res.send(user)
 }
 
 const SignInUser = async (req, res, next) => {
@@ -60,5 +66,6 @@ module.exports = {
   CreateUser,
   SignInUser,
   RefreshSession,
-  Find
+  Find,
+  FindById
 }

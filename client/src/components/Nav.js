@@ -6,21 +6,22 @@ import '../styles/Header.css'
 export default ({authenticated, currentUser, className}) =>{
     return authenticated && currentUser ?  (
 
-            <header className={className}>
-                <nav>
-                    <NavLink to='/profile'>
+            <header >
+                <nav className="navbar navbar-dark bg-primary">
+                    <NavLink to='/profile' className="btn btn-primary">
                         Profile
                     </NavLink>
-                    <NavLink to='/pet'>
+                    <NavLink to='/pet' className="btn btn-primary">
                         My Pet
                     </NavLink>
-                    <NavLink to='/feed'>
+                    <NavLink to='/feed' className="btn btn-primary">
                         Feed
                     </NavLink>
                     <NavLink
                         activeClassName="nav-active"
                         to="/"
                         onClick={() => localStorage.clear()}
+                        className="btn btn-primary"
                     >
                         Sign Out
                     </NavLink>
@@ -31,7 +32,7 @@ export default ({authenticated, currentUser, className}) =>{
                 </nav>
             </header>
     ) : (
-    <header className={className}>
+    <header className='header'>
         <nav>
             <NavLink to='/'>
                 Home

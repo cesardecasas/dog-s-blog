@@ -79,7 +79,7 @@ class Router extends Component{
                             <Layout authenticated={this.state.authenticated}
                                     currentUser={this.state.currentUser}
                             >
-                                <Profile/>
+                                <Profile currentUser={this.state.currentUser}/>
                             </Layout>
                         )}
                     />
