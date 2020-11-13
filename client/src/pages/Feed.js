@@ -77,6 +77,8 @@
                                         <div className="card-body">
                                             <p className="card-text">{post.description}</p>
                                             <p className='like'>{post.likes} liked this post</p>
+                                            <input className="btn btn-primary btn-sm h" type="button" value="like"/>
+                                            <input className="btn btn-primary btn-sm s" type="button" value="comment"/>
                                         </div>
                                     </div>
                                     <br/>
