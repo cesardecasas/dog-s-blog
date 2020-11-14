@@ -84,12 +84,26 @@ const GetPosts = async (req, res) => {
       throw error
     }
   }
+
+  const UpdateLike = async (req, res)=>{
+    try {
+      await Post.findByIdAndUpdate(
+        {_id:req.params._id},
+        {likes:req.params.likes},
+        {new:true, upsert:true, useFindAndModify:true}
+        
+      )
+    } catch (error) {
+      throw error
+    }
+  }
   
   module.exports = {
     GetPosts,
     GetPostById,
     CreatePost,
     DeletePost,
-    UpdatePost
+    UpdatePost,
+    UpdateLike
   }
   

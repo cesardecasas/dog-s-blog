@@ -1,9 +1,10 @@
     import React, { Component } from 'react'
     import '../styles/Feed.css'
     import Card from '../components/Card'
-    import {__GetPosts, __UploadPost} from '../services/PostsServices'
+    import {__GetPosts, __UploadPost, __UpdateLike} from '../services/PostsServices'
     import TextInput from '../components/TextInput'
     import '../styles/CreatePost.css'
+    
 
     class Feed extends Component{
     constructor(){
@@ -44,6 +45,21 @@
         }
     }
 
+    handleLike = async (e)=>{
+        try {
+            const index= e.target.name
+            let like = this.state.posts[index].likes + 1
+            console.log(like)
+            const id= e.target.id
+            await __UpdateLike(id,like)
+            console.log('hi')
+            this.getPosts()
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     render(){
         return (
             <div className='feed'>
@@ -66,7 +82,7 @@
                         <button className='btn btn-primary btn-sm'>Create</button>
                     </form>
                     <br/>
-                    {this.state.posts.map((post)=>(
+                    {this.state.posts.map((post, index)=>(
                         <Card key={post._id}>
                                     <div className="card post" style={{width: 475}}>
                                         <div className='row user'>
@@ -77,8 +93,8 @@
                                         <div className="card-body">
                                             <p className="card-text">{post.description}</p>
                                             <p className='like'>{post.likes} liked this post</p>
-                                            <input className="btn btn-primary btn-sm h" type="button" value="like"/>
-                                            <input className="btn btn-primary btn-sm s" type="button" value="comment"/>
+                                            <input className="btn btn-primary btn-sm h" id={post._id} name={index} onClick={this.handleLike} type="button" value="like"/>
+                                            <input className="btn btn-primary btn-sm s" id={post._id} type="button" value="comment"/>
                                         </div>
                                     </div>
                                     <br/>

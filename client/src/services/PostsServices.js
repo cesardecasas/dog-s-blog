@@ -39,6 +39,16 @@ export const __UpdatePost = async (formData, postId) => {
   }
 }
 
+export const __UpdateLike = async (id,like)=>{
+  try {
+    const res = await ApiClient.put(`/posts/like/${id}/${like}`)
+    console.log(res.data)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
 export const __DeletePost = async (postId) => {
   try {
     const res = await ApiClient.delete(`/posts/${postId}?active=true`)
