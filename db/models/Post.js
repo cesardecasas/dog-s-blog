@@ -12,8 +12,10 @@ const Post =  new Schema(
         required: true
       },
       image_url: {
-        type: String,
-        required:true
+        type: String
+      },
+      video_url:{
+        type:String
       },
       user_id: {
         type: Schema.Types.ObjectId,

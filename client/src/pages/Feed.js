@@ -4,6 +4,7 @@
     import {__GetPosts, __UploadPost, __UpdateLike} from '../services/PostsServices'
     import TextInput from '../components/TextInput'
     import '../styles/CreatePost.css'
+    import Player from '../components/Player'
     
 
     class Feed extends Component{
@@ -45,19 +46,21 @@
         }
     }
 
+    clearPosts = async ()=>{
+        this.setState({posts:[]})
+        this.getPosts()
+    }
+
     handleLike = async (e)=>{
-        try {
-            const index= e.target.name
-            let like = this.state.posts[index].likes + 1
-            console.log(like)
-            const id= e.target.id
-            await __UpdateLike(id,like)
-            console.log('hi')
-            this.getPosts()
             
-        } catch (error) {
-            console.log(error)
-        }
+            const index= e.target.name
+            if(this.state.posts[index].__v === 0){
+                let like = this.state.posts[index].likes + 1
+                const id= e.target.id
+                await __UpdateLike(id,like)
+                this.clearPosts()
+                
+            }
     }
 
     render(){
@@ -83,13 +86,14 @@
                     </form>
                     <br/>
                     {this.state.posts.map((post, index)=>(
-                        <Card key={post._id}>
+                        <Card key={index}>
                                     <div className="card post" style={{width: 475}}>
                                         <div className='row user'>
                                             <img src={post.user_id.profile} alt='profile pic' style={{width: 25}}/>
                                             <h6 className='userName'>{post.user_id.name}</h6>
                                         </div>
-                                        <img src={post.image_url} className="card-img-top img-thumbnail" alt="ike"/>
+                                        {post.video_url ? <Player src={post.video_url}/> : <img src={post.image_url} className="card-img-top img-thumbnail" alt="ike"/> }
+                                        
                                         <div className="card-body">
                                             <p className="card-text">{post.description}</p>
                                             <p className='like'>{post.likes} liked this post</p>

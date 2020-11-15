@@ -91,8 +91,8 @@ const GetPosts = async (req, res) => {
         {_id:req.params._id},
         {likes:req.params.likes},
         {new:true, upsert:true, useFindAndModify:true}
-        
-      )
+        )
+        return res.send('l')
     } catch (error) {
       throw error
     }

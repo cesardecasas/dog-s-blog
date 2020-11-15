@@ -59,3 +59,6 @@ You can find the deployed link [here]()
 ![Singup](./readImgs/2.png)
 
 ![Login](./readImgs/3.png)
+
+### Credits
+ * Video.React Player

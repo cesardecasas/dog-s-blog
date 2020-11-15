@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../styles/Profile.css'
 
+
 class MyPet extends Component{
     constructor(){
         super()
