@@ -61,4 +61,4 @@ You can find the deployed link [here]()
 ![Login](./readImgs/3.png)
 
 ### Credits
- * Video.React Player
+ * [Video.React Player](https://github.com/video-react/video-react)
