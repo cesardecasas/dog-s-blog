@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../styles/Profile.css'
 import {__GetProfile} from '../services/UserServices'
-import {__GetPostsById, __UploadPost, __UpdateLike} from '../services/PostsServices'
+import {__GetPostsById, __UploadPost, __UpdateLike, __DeletePost} from '../services/PostsServices'
 import Card from '../components/Card'
 import TextInput from '../components/TextInput'
 import Player from '../components/Player'
@@ -17,7 +17,7 @@ export default class Profile extends Component{
             currentPage:1,
             image_url:'',
             video_url:'',
-            description:''
+            description:'',
         }
     }
 
@@ -57,7 +57,7 @@ export default class Profile extends Component{
             e.preventDefault()
             try {
               await __UploadPost(this.state, this.props.currentUser._id)
-              this.props.history.push('/profile')
+              this.clearPosts()
               
             } catch (error) {
               console.log(error)
@@ -77,10 +77,17 @@ export default class Profile extends Component{
                     const id= e.target.id
                     await __UpdateLike(id,like)
                     this.clearPosts()
+                   
                     
                 }
         }
 
+        DeletePost = async (e)=>{
+            const id =e.target.name
+            await __DeletePost(id)
+            this.clearPosts()
+            console.log('hello')
+        }
 
 
     render(){
@@ -129,6 +136,42 @@ export default class Profile extends Component{
                                         <div className='row user'>
                                             <img src={post.user_id.profile} alt='profile pic' style={{width: 25}}/>
                                             <h6 className='userName'>{post.user_id.name}</h6>
+                                            <div className='hello'>
+                                                <div className='btn-group'>
+                                                    <button type="button" className="btn btn-primary btn-sm dropdown-toggle hello" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
+                                                    <div className='dropdown-menu'>
+                                                        <a className='dropdown-item' onClick={this.DeletePost} name={post._id}>Delete</a>
+                                                        <form className='px-4 py-3'>
+                                                            <div className='form-group'>
+                                                                <label for='update'>Update Post</label>
+                                                                <input 
+                                                                    type="text" 
+                                                                    class="form-control" 
+                                                                    id='image' 
+                                                                    placeholder="Image URL" 
+                                                                    name='image_url' 
+                                                                    value={this.state.video_url} 
+                                                                    onChange={this.handleChange} 
+                                                                    style={{width: 200}}
+                                                                />
+                                                            </div>
+                                                            <div className='form-group'>
+                                                                <input 
+                                                                    type="text" 
+                                                                    class="form-control" 
+                                                                    id='image' 
+                                                                    placeholder="Video URL" 
+                                                                    style={{width: 200}}
+                                                                />
+                                                            </div>
+                                                            <div className='form-group'>
+                                                                <input type="text" class="form-control" id='image' placeholder="Description" style={{width: 200}}/>
+                                                            </div>
+                                                            <button class="btn btn-primary">Submit</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         {post.video_url ? <Player src={post.video_url}/> : <img src={post.image_url} className="card-img-top img-thumbnail" alt="ike"/> }
                                         

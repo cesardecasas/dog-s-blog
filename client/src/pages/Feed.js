@@ -72,13 +72,13 @@
                     <form onSubmit={this.handleSubmit} className='flex-col box'>
                         <p>Create Post</p>
                         <TextInput 
-                            placeholder='Image URL(optional)'
+                            placeholder='Image URL'
                             name='image_url'
                             value={this.state.image_url}
                             onChange={this.handleChange}
                         />
                         <TextInput
-                            placeholder='Video URL(optional)'
+                            placeholder='Video URL'
                             name='video_url'
                             value={this.state.video_url}
                             onChange={this.handleChange}
@@ -100,7 +100,6 @@
                                             <h6 className='userName'>{post.user_id.name}</h6>
                                         </div>
                                         {post.video_url ? <Player src={post.video_url}/> : <img src={post.image_url} className="card-img-top img-thumbnail" alt="ike"/> }
-                                        
                                         <div className="card-body">
                                             <p className="card-text">{post.description}</p>
                                             <p className='like'>{post.likes} liked this post</p>

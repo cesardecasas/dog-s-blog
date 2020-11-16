@@ -51,6 +51,7 @@ main{
 
 .userName{
     justify-self: start;
+    padding: 0 340px 0 0;
 }
 
 .h{
@@ -63,4 +64,9 @@ main{
     width: 99%;
     grid-column: 2;
     grid-row: 3;
+}
+
+.hello{
+    justify-self: right;
+    text-align: right;
 }
