@@ -24,6 +24,30 @@ const GetPosts = async (req, res) => {
       throw error
     }
   }
+
+  const GetPostsById = async (req, res) => {
+    try {
+      const user = await User.findById(req.params.user_id).select('_id name')
+      const posts = await Post.find({ user_id: req.params.user_id }).populate([
+        {
+          model: 'users',
+          path: 'user_id',
+          select: '_id name profile'
+        },
+        {
+          path: 'comments',
+          populate: {
+            path: 'user_id',
+            model: 'users',
+            select: '_id name'
+          }
+        }
+      ])
+      res.send({ user, posts })
+    } catch (error) {
+      throw error
+    }
+  }
   
   const GetPostById = async (req, res) => {
     try {
@@ -104,6 +128,7 @@ const GetPosts = async (req, res) => {
     CreatePost,
     DeletePost,
     UpdatePost,
-    UpdateLike
+    UpdateLike,
+    GetPostsById
   }
   

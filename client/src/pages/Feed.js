@@ -14,6 +14,7 @@
             posts:[],
             currentPage:1,
             image_url:'',
+            video_url:'',
             description:''
         }
     }
@@ -71,9 +72,15 @@
                     <form onSubmit={this.handleSubmit} className='flex-col box'>
                         <p>Create Post</p>
                         <TextInput 
-                            placeholder='Image URL'
+                            placeholder='Image URL(optional)'
                             name='image_url'
                             value={this.state.image_url}
+                            onChange={this.handleChange}
+                        />
+                        <TextInput
+                            placeholder='Video URL(optional)'
+                            name='video_url'
+                            value={this.state.video_url}
                             onChange={this.handleChange}
                         />
                         <TextInput 

@@ -57,3 +57,12 @@ export const __DeletePost = async (postId) => {
     throw error
   }
 }
+
+export const __GetPostsById = async (userId)=>{
+  try {
+    const res = await ApiClient.get(`/posts/user/${userId}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}

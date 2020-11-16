@@ -7,5 +7,6 @@ Router.post('/:user_id', PostController.CreatePost)
 Router.put('/:post_id', PostController.UpdatePost)
 Router.delete('/:post_id', PostController.DeletePost)
 Router.put('/like/:_id/:likes',PostController.UpdateLike)
+Router.get('/user/:user_id', PostController.GetPostsById)
 
 module.exports = Router
