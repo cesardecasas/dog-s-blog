@@ -16,8 +16,15 @@ const GetPosts = async (req, res) => {
             path: 'user_id',
             model: 'users',
             select: 'name profile'
-          }
-          ])
+          },
+          {
+            path: 'comments',
+            populate: {
+              path: 'user_id',
+              model: 'users',
+              select: '_id name comment'
+            }
+          }])
         
       res.send(posts)
     } catch (error) {
@@ -39,7 +46,7 @@ const GetPosts = async (req, res) => {
           populate: {
             path: 'user_id',
             model: 'users',
-            select: '_id name'
+            select: '_id name comment'
           }
         }
       ])

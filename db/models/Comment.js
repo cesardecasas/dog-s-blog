@@ -9,6 +9,10 @@ const Comment  = new Schema(
     user_id: {
       type: Schema.Types.ObjectId,
       ref: 'users'
+    },
+    post_id:{
+      type: Schema.Types.ObjectId,
+      ref:'posts'
     }
   },
   { timestamps: true }

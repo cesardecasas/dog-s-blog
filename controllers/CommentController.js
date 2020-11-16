@@ -3,7 +3,7 @@ const Post =require('../db/models/Post')
 
 const CreateComment = async (req, res) => {
     try {
-      const comment = new Comment({ ...req.body, user_id: req.params.user_id })
+      const comment = new Comment({ ...req.body, user_id: req.params.user_id, post_id:req.params.post_id })
       comment.save()
       await Post.update(
         { _id: req.params.post_id },
@@ -22,7 +22,7 @@ const CreateComment = async (req, res) => {
   const RemoveComment = async (req, res) => {
     try{
       await Comment.deleteOne({ _id: req.params.comment_id })
-      await GamePost.findOneAndUpdate(
+      await Post.findOneAndUpdate(
         {_id: req.params.post_id},
         { $pull: { comments: req.params.comment_id  } },
         { upsert: true, new: true },
