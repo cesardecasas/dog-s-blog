@@ -101,9 +101,9 @@ const GetPosts = async (req, res) => {
         {
           ...req.body
         },
-        { new: true, useFindAndModify: false },
-        (err, (d) => (err ? err : res.send(d)))
+        { new: true, useFindAndModify: false }
       )
+      res.send('h')
     } catch (error) {
       throw error
     }

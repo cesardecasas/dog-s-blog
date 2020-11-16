@@ -48,6 +48,15 @@ const CreateComment = async (req, res) => {
       throw error
     }
   }
+
+  const GetCommentsById = async (req,res) =>{
+    try {
+      const comments = await Comment.find({_id:req.params.id})
+      res.send(comments)
+    } catch (error) {
+      throw error 
+    }
+  }
   
   module.exports = {
     CreateComment,

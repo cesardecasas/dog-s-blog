@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../styles/Profile.css'
 import {__GetProfile} from '../services/UserServices'
-import {__GetPostsById, __UploadPost, __UpdateLike, __DeletePost} from '../services/PostsServices'
+import {__GetPostsById, __UploadPost, __UpdateLike, __DeletePost, __UpdatePost} from '../services/PostsServices'
 import Card from '../components/Card'
 import TextInput from '../components/TextInput'
 import Player from '../components/Player'
@@ -18,6 +18,7 @@ export default class Profile extends Component{
             image_url:'',
             video_url:'',
             description:'',
+            comment:'   '
         }
     }
 
@@ -58,13 +59,13 @@ export default class Profile extends Component{
             try {
               await __UploadPost(this.state, this.props.currentUser._id)
               this.clearPosts()
-              
+              this.clearState()
             } catch (error) {
               console.log(error)
             }
         }
     
-        clearPosts = async ()=>{
+        clearPosts =()=>{
             this.setState({posts:[]})
             this.getPosts()
         }
@@ -87,6 +88,22 @@ export default class Profile extends Component{
             await __DeletePost(id)
             this.clearPosts()
             console.log('hello')
+        }
+
+        clearState=()=>{
+            this.setState({description:'',image_url:'',video_url:''})
+        }
+
+        handleUpdate = async (e)=>{
+            e.preventDefault()
+            const id = e.target[3].name
+            try {
+                await __UpdatePost(this.state, id)
+                this.clearPosts()
+                this.clearState()
+            } catch (error) {
+                throw error
+            }
         }
 
 
@@ -141,16 +158,16 @@ export default class Profile extends Component{
                                                     <button type="button" className="btn btn-primary btn-sm dropdown-toggle hello" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
                                                     <div className='dropdown-menu'>
                                                         <a className='dropdown-item' onClick={this.DeletePost} name={post._id}>Delete</a>
-                                                        <form className='px-4 py-3'>
+                                                        <form className='px-4 py-3' onSubmit={this.handleUpdate} >
                                                             <div className='form-group'>
-                                                                <label for='update'>Update Post</label>
+                                                                <label htmlFor='update'>Update Post</label>
                                                                 <input 
                                                                     type="text" 
-                                                                    class="form-control" 
+                                                                    className="form-control" 
                                                                     id='image' 
                                                                     placeholder="Image URL" 
                                                                     name='image_url' 
-                                                                    value={this.state.video_url} 
+                                                                    value={this.state.image_url} 
                                                                     onChange={this.handleChange} 
                                                                     style={{width: 200}}
                                                                 />
@@ -158,16 +175,28 @@ export default class Profile extends Component{
                                                             <div className='form-group'>
                                                                 <input 
                                                                     type="text" 
-                                                                    class="form-control" 
+                                                                    className="form-control" 
                                                                     id='image' 
                                                                     placeholder="Video URL" 
                                                                     style={{width: 200}}
+                                                                    value={this.state.video_url}
+                                                                    name='video_url'
+                                                                    onChange={this.handleChange}
                                                                 />
                                                             </div>
                                                             <div className='form-group'>
-                                                                <input type="text" class="form-control" id='image' placeholder="Description" style={{width: 200}}/>
+                                                                <input 
+                                                                    type="text" 
+                                                                    className="form-control" 
+                                                                    id='image' 
+                                                                    placeholder="Description" 
+                                                                    style={{width: 200}}
+                                                                    value={this.state.description}
+                                                                    name='description'
+                                                                    onChange={this.handleChange}
+                                                                />
                                                             </div>
-                                                            <button class="btn btn-primary">Submit</button>
+                                                            <button name={post._id} className="btn btn-primary">Submit</button>
                                                         </form>
                                                     </div>
                                                 </div>
