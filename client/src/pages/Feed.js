@@ -31,7 +31,7 @@
             const posts = await __GetPosts(this.state.currentPage)
             posts.reverse()
             this.setState({ posts: [...this.state.posts, ...posts] })
-            this.state.posts.reverse()
+            
         } catch (error) {
             console.log(error)
         }

@@ -56,6 +56,7 @@ export default class Profile extends Component{
         getPosts = async () => {
             try {
                 const posts = await __GetPostsById(this.props.currentUser._id)
+                posts.posts.reverse()
                 this.setState({ posts: posts.posts })
             } catch (error) {
                 console.log(error)
