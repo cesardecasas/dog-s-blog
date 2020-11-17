@@ -5,6 +5,7 @@
     import TextInput from '../components/TextInput'
     import '../styles/CreatePost.css'
     import Player from '../components/Player'
+    import {__CreateComment} from '../services/CommentServices'
     
 
     class Feed extends Component{
@@ -15,7 +16,8 @@
             currentPage:1,
             image_url:'',
             video_url:'',
-            description:''
+            description:'', 
+            comment:''
         }
     }
 
@@ -64,6 +66,17 @@
             }
     }
 
+    handleCreateComment = async(e)=>{
+        e.preventDefault()
+        const id = e.target[1].name
+        try {
+            await __CreateComment(this.state,this.props.currentUser._id,id )
+            console.log('done')
+        } catch (error) {
+            throw error
+        }
+    }
+
     render(){
         return (
             <div className='feed'>
@@ -104,7 +117,28 @@
                                             <p className="card-text">{post.description}</p>
                                             <p className='like'>{post.likes} liked this post</p>
                                             <input className="btn btn-primary btn-sm h" id={post._id} name={index} onClick={this.handleLike} type="button" value="like"/>
-                                            <input className="btn btn-primary btn-sm s" id={post._id} type="button" value="comment"/>
+                                            <div className='btn-group s'>
+                                                <input className="btn btn-primary btn-sm s" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id={post._id} type="button" value="comment"/>
+                                                <div className='dropdown-menu'>
+                                                    <form className='px-4 py-3' onSubmit={this.handleCreateComment} >
+                                                            <div className='form-group'>
+                                                                <label htmlFor='update'>Write Comment</label>
+                                                                <div className='form-group'>
+                                                                    <input 
+                                                                        type="text" 
+                                                                        className="form-control" 
+                                                                        placeholder="Comment" 
+                                                                        name='comment' 
+                                                                        value={this.state.comment} 
+                                                                        onChange={this.handleChange} 
+                                                                        style={{width: 200}}
+                                                                    />
+                                                                </div>
+                                                                <button name={post._id} className="btn btn-primary">Create!</button>
+                                                            </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <br/>

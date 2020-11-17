@@ -13,7 +13,7 @@ export default class Profile extends Component{
     constructor(){
         super()
         this.state={
-            profile:[],
+            profileinf:[],
             posts:[],
             currentPage:1,
             image_url:'',
@@ -35,7 +35,7 @@ export default class Profile extends Component{
             const id = this.props.currentUser._id
             
             const profileData = await __GetProfile(id)
-            this.setState({profile:profileData})
+            this.setState({profileinf:profileData})
            
         } catch (error) {
             console.log(error)
@@ -120,17 +120,39 @@ export default class Profile extends Component{
 
 
     render(){
-        const {profile} = this.state
+        const {profileinf} = this.state
         return(
             <div>
                 <div className='template'>
                 <main className='content'>
                     <img  
-                        src={profile.profile} 
+                        src={profileinf.profile} 
                         alt='profile pic'
                         className='img-thumbnail'
                     />
-                    <h5 className='profilepic'>{profile.name}</h5>
+                    <h5 className='profilepic'>{profileinf.name}</h5>
+                    <div className='btn-group update'>
+                                                <input className="btn btn-primary btn-sm " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id={profileinf._id} type="button" value="Update Profile"/>
+                                                <div className='dropdown-menu'>
+                                                    <form className='px-4 py-3' onSubmit={this.handleCreateComment} >
+                                                            <div className='form-group'>
+                                                                <label htmlFor='update'>Write Comment</label>
+                                                                <div className='form-group'>
+                                                                    <input 
+                                                                        type="text" 
+                                                                        className="form-control" 
+                                                                        placeholder="Comment" 
+                                                                        name='comment' 
+                                                                        value={this.state.comment} 
+                                                                        onChange={this.handleChange} 
+                                                                        style={{width: 200}}
+                                                                    />
+                                                                </div>
+                                                                <button name={profileinf._id} className="btn btn-primary">Create!</button>
+                                                            </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                 </main>
             </div>
             <div className='feed'>
