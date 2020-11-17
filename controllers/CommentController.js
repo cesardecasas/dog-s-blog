@@ -51,7 +51,13 @@ const CreateComment = async (req, res) => {
 
   const GetCommentsById = async (req,res) =>{
     try {
-      const comments = await Comment.find({_id:req.params.id})
+      const comments = await Comment.find({post_id:req.params.post_id}).populate([
+        {
+          model:'users',
+          path:'user_id',
+          select:'_id name'
+        }
+      ])
       res.send(comments)
     } catch (error) {
       throw error 
@@ -61,6 +67,7 @@ const CreateComment = async (req, res) => {
   module.exports = {
     CreateComment,
     RemoveComment,
-    UpdateComment
+    UpdateComment,
+    GetCommentsById
   }
   

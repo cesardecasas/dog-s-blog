@@ -5,8 +5,8 @@
     import TextInput from '../components/TextInput'
     import '../styles/CreatePost.css'
     import Player from '../components/Player'
-    import {__CreateComment} from '../services/CommentServices'
-    
+    import {__CreateComment, __GetComments} from '../services/CommentServices'
+    import Comment from '../components/Comment'    
 
     class Feed extends Component{
     constructor(){
@@ -17,7 +17,8 @@
             image_url:'',
             video_url:'',
             description:'', 
-            comment:''
+            comment:'',
+            comments:[]
         }
     }
 
@@ -72,6 +73,18 @@
         try {
             await __CreateComment(this.state,this.props.currentUser._id,id )
             console.log('done')
+            this.clearPosts()
+        } catch (error) {
+            throw error
+        }
+    }
+
+    GetComments = async(e)=>{
+        const id = e.target.id
+        try {
+            this.setState({comments:[]})
+            const comments = await __GetComments(id)
+            this.setState({comments: comments})
         } catch (error) {
             throw error
         }
@@ -116,6 +129,17 @@
                                         <div className="card-body">
                                             <p className="card-text">{post.description}</p>
                                             <p className='like'>{post.likes} liked this post</p>
+                                            {post.comments[0] ? <div className='btn-group comments'>
+                                                <input onClick={this.GetComments} className="btn btn-sm s" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id={post._id} type="button" value="view comments"/>
+                                                <div className='drop-down-menu'>
+                                                    <a className='dropdown-item'>
+                                                    {this.state.comments.map(comment =>(
+                                                        
+                                                        <Comment key={comment._id} comment={comment.comment} user={comment.user_id.name}/>
+                                                    ))}
+                                                    </a>
+                                                </div>
+                                            </div> : <p></p>}
                                             <input className="btn btn-primary btn-sm h" id={post._id} name={index} onClick={this.handleLike} type="button" value="like"/>
                                             <div className='btn-group s'>
                                                 <input className="btn btn-primary btn-sm s" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id={post._id} type="button" value="comment"/>

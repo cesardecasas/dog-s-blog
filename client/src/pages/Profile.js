@@ -2,24 +2,29 @@ import React, { Component } from 'react'
 import '../styles/Profile.css'
 import {__GetProfile} from '../services/UserServices'
 import {__GetPostsById, __UploadPost, __UpdateLike, __DeletePost, __UpdatePost} from '../services/PostsServices'
-import {__CreateComment} from '../services/CommentServices'
+import {__CreateComment, __GetComments} from '../services/CommentServices'
 import Card from '../components/Card'
 import TextInput from '../components/TextInput'
 import Player from '../components/Player'
 import '../styles/Feed.css'
+import Comment from '../components/Comment'
 
 
 export default class Profile extends Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
             profileinf:[],
             posts:[],
+            comments:[],
             currentPage:1,
             image_url:'',
             video_url:'',
             description:'',
-            comment:''
+            comment:'',
+            email:'',
+            profile:'',
+            name:''
         }
     }
 
@@ -29,6 +34,7 @@ export default class Profile extends Component{
         
     }
 
+    
     getProfile = async ()=>{
         try {
             
@@ -36,12 +42,16 @@ export default class Profile extends Component{
             
             const profileData = await __GetProfile(id)
             this.setState({profileinf:profileData})
-           
+            
         } catch (error) {
             console.log(error)
         }
     }
     
+    setEmail = async() =>{
+      await  this.setState({email:this.state.profileinf.email})
+    }
+
         getPosts = async () => {
             try {
                 const posts = await __GetPostsById(this.props.currentUser._id)
@@ -113,6 +123,18 @@ export default class Profile extends Component{
             try {
                 await __CreateComment(this.state,this.props.currentUser._id,id )
                 console.log('done')
+                this.clearPosts()
+            } catch (error) {
+                throw error
+            }
+        }
+
+        GetComments = async(e)=>{
+            const id = e.target.id
+            try {
+                this.setState({comments:[]})
+                const comments = await __GetComments(id)
+                this.setState({comments: comments})
             } catch (error) {
                 throw error
             }
@@ -132,7 +154,15 @@ export default class Profile extends Component{
                     />
                     <h5 className='profilepic'>{profileinf.name}</h5>
                     <div className='btn-group update'>
-                                                <input className="btn btn-primary btn-sm " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id={profileinf._id} type="button" value="Update Profile"/>
+                                                <input 
+                                                    className="btn btn-primary btn-sm " 
+                                                    data-toggle="dropdown" 
+                                                    aria-haspopup="true" 
+                                                    aria-expanded="false" 
+                                                    id={profileinf._id} 
+                                                    type="button" 
+                                                    value="Update Profile"
+                                                />
                                                 <div className='dropdown-menu'>
                                                     <form className='px-4 py-3' onSubmit={this.handleCreateComment} >
                                                             <div className='form-group'>
@@ -141,14 +171,27 @@ export default class Profile extends Component{
                                                                     <input 
                                                                         type="text" 
                                                                         className="form-control" 
-                                                                        placeholder="Comment" 
-                                                                        name='comment' 
-                                                                        value={this.state.comment} 
+                                                                        placeholder="Username" 
+                                                                        name='name' 
+                                                                        value={this.state.name} 
                                                                         onChange={this.handleChange} 
                                                                         style={{width: 200}}
                                                                     />
                                                                 </div>
-                                                                <button name={profileinf._id} className="btn btn-primary">Create!</button>
+                                                                <div>
+                                                                    <input
+                                                                        type="text" 
+                                                                        className="form-control" 
+                                                                        placeholder="Profile Pic URL" 
+                                                                        name='profile pic' 
+                                                                        value={this.state.profile} 
+                                                                        onChange={this.handleChange} 
+                                                                        style={{width: 200}}
+                                                                    />
+                                                                </div>
+                                                                <div className='form-group'>
+                                                                    <button name={profileinf._id} className="btn btn-primary">Update!</button>
+                                                                </div>
                                                             </div>
                                                     </form>
                                                 </div>
@@ -189,7 +232,7 @@ export default class Profile extends Component{
                                             <h6 className='userName'>{post.user_id.name}</h6>
                                             <div className='hello'>
                                                 <div className='btn-group'>
-                                                    <button type="button" className="btn btn-primary btn-sm dropdown-toggle hello" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
+                                                    <button  type="button" className="btn btn-primary btn-sm dropdown-toggle hello" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
                                                     <div className='dropdown-menu'>
                                                         <a className='dropdown-item' onClick={this.DeletePost} name={post._id}>Delete</a>
                                                         <form className='px-4 py-3' onSubmit={this.handleUpdate} >
@@ -241,6 +284,18 @@ export default class Profile extends Component{
                                         <div className="card-body">
                                             <p className="card-text">{post.description}</p>
                                             <p className='like'>{post.likes} liked this post</p>
+                                            {post.comments[0] ? <div className='btn-group comments'>
+                                                <input onClick={this.GetComments} className="btn btn-sm s" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id={post._id} type="button" value="view comments"/>
+                                                <div className='drop-down-menu'>
+                                                    <a className='dropdown-item'>
+                                                    {this.state.comments.map(comment =>(
+                                                        
+                                                        <Comment key={comment._id} comment={comment.comment} user={comment.user_id.name}/>
+                                                    ))}
+                                                    </a>
+                                                </div>
+                                            </div> : <p></p>}
+                                            
                                             <input className="btn btn-primary btn-sm h" id={post._id} name={index} onClick={this.handleLike} type="button" value="like"/>
                                             <div className='btn-group s'>
                                                 <input className="btn btn-primary btn-sm s" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id={post._id} type="button" value="comment"/>

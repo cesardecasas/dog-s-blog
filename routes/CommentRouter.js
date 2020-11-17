@@ -10,5 +10,8 @@ Router.delete(
 Router.put(
   '/:comment_id', CommentController.UpdateComment
 )
+Router.get(
+  '/:post_id', CommentController.GetCommentsById
+)
 
 module.exports = Router
