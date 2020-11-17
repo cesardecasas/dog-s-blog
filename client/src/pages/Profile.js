@@ -9,6 +9,8 @@ import TextInput from '../components/TextInput'
 import Player from '../components/Player'
 import '../styles/Feed.css'
 import Comment from '../components/Comment'
+import Uploader from '../components/Uploader'
+
 
 
 export default class Profile extends Component{
@@ -181,15 +183,7 @@ export default class Profile extends Component{
                                                                     />
                                                                 </div>
                                                                 <div>
-                                                                    <input
-                                                                        type="text" 
-                                                                        className="form-control" 
-                                                                        placeholder="Profile Pic URL" 
-                                                                        name='profile pic' 
-                                                                        value={this.state.profile} 
-                                                                        onChange={this.handleChange} 
-                                                                        style={{width: 200}}
-                                                                    />
+                                                                    <Uploader {...this.props} currentUser={this.props.currentUser}/>
                                                                 </div>
                                                                 <div className='form-group'>
                                                                     <button name={profileinf._id} className="btn btn-primary">Update!</button>

@@ -9,6 +9,15 @@ export const __GetProfile = async (userId) => {
   }
 }
 
+export const __UpdateUser = async(formData, userId)=>{
+  try {
+    const res = await ApiClient.put(`/users/${userId}`, {profile: formData})
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
 export const __RegisterUser = async (formData) => {
   try {
     const res = await ApiClient.post('/users/register', formData)

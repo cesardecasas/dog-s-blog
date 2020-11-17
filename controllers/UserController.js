@@ -62,10 +62,24 @@ const RefreshSession = (req, res) => {
   }
 }
 
+const UpdateUser = async (req, res) =>{
+  console.log(req.body)
+  try {
+    await User.findByIdAndUpdate({_id: req.params.user_id}, 
+      {profile: req.body.profile},
+      {upsert:true, new:true}
+    )
+    res.send({msg:'succesfully updated'})
+  } catch (error) {
+    throw error 
+  }
+}
+
 module.exports = {
   CreateUser,
   SignInUser,
   RefreshSession,
   Find,
-  FindById
+  FindById,
+  UpdateUser
 }
