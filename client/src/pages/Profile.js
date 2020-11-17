@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react'
 import '../styles/Profile.css'
 import {__GetProfile} from '../services/UserServices'
@@ -131,13 +132,13 @@ export default class Profile extends Component{
 
         GetComments = async(e)=>{
             const id = e.target.id
-            try {
                 this.setState({comments:[]})
                 const comments = await __GetComments(id)
                 this.setState({comments: comments})
-            } catch (error) {
-                throw error
-            }
+            
+        }
+        removeComments = () =>{
+            this.setState({comments:[]})
         }
 
 
@@ -285,7 +286,7 @@ export default class Profile extends Component{
                                             <p className="card-text">{post.description}</p>
                                             <p className='like'>{post.likes} liked this post</p>
                                             {post.comments[0] ? <div className='btn-group comments'>
-                                                <input onClick={this.GetComments} className="btn btn-sm s" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id={post._id} type="button" value="view comments"/>
+                                                <input onClick={this.GetComments} onDoubleClick={this.removeComments} className="btn btn-sm s" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id={post._id} type="button" value="view comments"/>
                                                 <div className='drop-down-menu'>
                                                     <a className='dropdown-item'>
                                                     {this.state.comments.map(comment =>(

@@ -72,6 +72,14 @@ main{
 }
 
 .comments{
-    grid-row: 2;
-    grid-column: 2;
+    grid-row: 4;
+    grid-column: 1;
+}
+
+.comment{
+    border: 2px solid black;
+    width:200px;
+    height: 50px;
+    padding: 0;
+    
 }

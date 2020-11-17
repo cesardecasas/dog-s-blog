@@ -1,129 +1,141 @@
-    import React, { Component } from 'react'
-    import '../styles/Feed.css'
-    import Card from '../components/Card'
-    import {__GetPosts, __UploadPost, __UpdateLike} from '../services/PostsServices'
-    import TextInput from '../components/TextInput'
-    import '../styles/CreatePost.css'
-    import Player from '../components/Player'
-    import {__CreateComment, __GetComments} from '../services/CommentServices'
-    import Comment from '../components/Comment'    
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { Component } from 'react'
+import '../styles/Profile.css'
+import {__GetProfile} from '../services/UserServices'
+import {__GetPostsById, __UpdateLike} from '../services/PostsServices'
+import {__CreateComment, __GetComments} from '../services/CommentServices'
+import Card from '../components/Card'
+import Player from '../components/Player'
+import '../styles/Feed.css'
+import Comment from '../components/Comment'
 
-    class Feed extends Component{
-    constructor(){
-        super()
+
+export default class Profile extends Component{
+    constructor(props){
+        super(props)
         this.state={
+            profileinf:[],
             posts:[],
+            comments:[],
             currentPage:1,
             image_url:'',
             video_url:'',
-            description:'', 
+            description:'',
             comment:'',
-            comments:[]
+            email:'',
+            profile:'',
+            name:''
         }
     }
 
     componentDidMount(){
+        this.getProfile()
         this.getPosts()
+        
     }
 
-    getPosts = async () => {
+    
+    getProfile = async ()=>{
         try {
-            const posts = await __GetPosts(this.state.currentPage)
-            posts.reverse()
-            this.setState({ posts: [...this.state.posts, ...posts] })
-            this.state.posts.reverse()
+            
+            const id = this.props.currentUser._id
+            
+            const profileData = await __GetProfile(id)
+            this.setState({profileinf:profileData})
+            
         } catch (error) {
             console.log(error)
         }
     }
+    
+    
 
-    handleChange = ({ target }) => {
-        this.setState({ [target.name]: target.value })
-      }
-
-    handleSubmit = async (e) => {
-        e.preventDefault()
-        try {
-          await __UploadPost(this.state, this.props.currentUser._id)
-          this.props.history.push('/profile')
-          
-        } catch (error) {
-          console.log(error)
-        }
-    }
-
-    clearPosts = async ()=>{
-        this.setState({posts:[]})
-        this.getPosts()
-    }
-
-    handleLike = async (e)=>{
-            
-            const index= e.target.name
-            if(this.state.posts[index].__v === 0){
-                let like = this.state.posts[index].likes + 1
-                const id= e.target.id
-                await __UpdateLike(id,like)
-                this.clearPosts()
-                
+        getPosts = async () => {
+            try {
+                const posts = await __GetPostsById(this.props.currentUser._id)
+                this.setState({ posts: posts.posts })
+            } catch (error) {
+                console.log(error)
             }
-    }
-
-    handleCreateComment = async(e)=>{
-        e.preventDefault()
-        const id = e.target[1].name
-        try {
-            await __CreateComment(this.state,this.props.currentUser._id,id )
-            console.log('done')
-            this.clearPosts()
-        } catch (error) {
-            throw error
         }
-    }
-
-    GetComments = async(e)=>{
-        const id = e.target.id
-        try {
-            this.setState({comments:[]})
-            const comments = await __GetComments(id)
-            this.setState({comments: comments})
-        } catch (error) {
-            throw error
+    
+        handleChange = ({ target }) => {
+            this.setState({ [target.name]: target.value })
+          }
+    
+        
+    
+        clearPosts =()=>{
+            this.setState({posts:[]})
+            this.getPosts()
         }
-    }
+    
+        handleLike = async (e)=>{
+                
+                const index= e.target.name
+                if(this.state.posts[index].__v === 0){
+                    let like = this.state.posts[index].likes + 1
+                    const id= e.target.id
+                    await __UpdateLike(id,like)
+                    this.clearPosts()
+                   
+                    
+                }
+        }
 
-    removeComments = () =>{
-        this.setState({comments:[]})
-    }
+        
+
+        clearState=()=>{
+            this.setState({description:'',image_url:'',video_url:''})
+        }
+
+        
+
+        handleCreateComment = async(e)=>{
+            e.preventDefault()
+            const id = e.target[1].name
+            try {
+                await __CreateComment(this.state,this.props.currentUser._id,id )
+                console.log('done')
+                this.clearPosts()
+            } catch (error) {
+                throw error
+            }
+        }
+
+        GetComments = async(e)=>{
+            const id = e.target.id
+            if(this.state.comments === []){
+            
+                this.setState({comments:[]})
+               
+                return 
+            }else{
+                this.setState({comments:[]})
+                const comments = await __GetComments(id)
+                this.setState({comments: comments})
+            }
+        }
+
 
     render(){
-        return (
+        const {profileinf} = this.state
+        return(
+            <div>
+                <div className='template'>
+                <main className='content'>
+                    <img  
+                        src={profileinf.profile} 
+                        alt='profile pic'
+                        className='img-thumbnail'
+                    />
+                    <h5 className='profilepic'>{profileinf.name}</h5>
+                </main>
+            </div>
             <div className='feed'>
                 <main>
                     <br/>
-                    <form onSubmit={this.handleSubmit} className='flex-col box'>
-                        <p>Create Post</p>
-                        <TextInput 
-                            placeholder='Image URL'
-                            name='image_url'
-                            value={this.state.image_url}
-                            onChange={this.handleChange}
-                        />
-                        <TextInput
-                            placeholder='Video URL'
-                            name='video_url'
-                            value={this.state.video_url}
-                            onChange={this.handleChange}
-                        />
-                        <TextInput 
-                            placeholder='Description'
-                            name='description'
-                            value={this.state.description}
-                            onChange={this.handleChange}
-                        />
-                        <button className='btn btn-primary btn-sm'>Create</button>
-                    </form>
-                    <br/>
+                   
                     {this.state.posts.map((post, index)=>(
                         <Card key={index}>
                                     <div className="card post" style={{width: 475}}>
@@ -132,11 +144,12 @@
                                             <h6 className='userName'>{post.user_id.name}</h6>
                                         </div>
                                         {post.video_url ? <Player src={post.video_url}/> : <img src={post.image_url} className="card-img-top img-thumbnail" alt="ike"/> }
+                                        
                                         <div className="card-body">
                                             <p className="card-text">{post.description}</p>
                                             <p className='like'>{post.likes} liked this post</p>
                                             {post.comments[0] ? <div className='btn-group comments'>
-                                                <input onClick={this.GetComments} onDoubleClick={this.removeComments} className="btn btn-sm s" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id={post._id} type="button" value="view comments"/>
+                                                <input onClick={this.GetComments} className="btn btn-sm s" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id={post._id} type="button" value="view comments"/>
                                                 <div className='drop-down-menu'>
                                                     <a className='dropdown-item'>
                                                     {this.state.comments.map(comment =>(
@@ -146,6 +159,7 @@
                                                     </a>
                                                 </div>
                                             </div> : <p></p>}
+                                            
                                             <input className="btn btn-primary btn-sm h" id={post._id} name={index} onClick={this.handleLike} type="button" value="like"/>
                                             <div className='btn-group s'>
                                                 <input className="btn btn-primary btn-sm s" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id={post._id} type="button" value="comment"/>
@@ -176,8 +190,7 @@
                     ))}
                 </main>
             </div>
+        </div>
         )
     }
-    }
-
-    export default Feed
+}

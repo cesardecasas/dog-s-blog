@@ -1,4 +1,3 @@
-import { PromiseProvider } from 'mongoose'
 import React from 'react'
 
 const Comment = (props) =>{

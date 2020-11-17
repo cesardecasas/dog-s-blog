@@ -10,6 +10,7 @@ import Layout from './Layout'
 import Profile from '../pages/Profile'
 import Feed from '../pages/Feed'
 import MyPet from '../pages/MyPet'
+import UserPage from '../pages/UserPage'
 
 class Router extends Component{
     constructor(){
@@ -106,6 +107,19 @@ class Router extends Component{
                             </Layout>
                         )}
                     /> 
+
+                    <ProtectedRoute
+                        authenticated={this.state.authenticated}
+                        path='/user/:id'
+                        component={(props)=>(
+                            <Layout
+                                authenticated={this.authenticated}
+                                currentUser={this.currentUser}
+                            >
+                                <UserPage/>
+                            </Layout>
+                        )}
+                    />
                 </Switch>
             </div>
         )
