@@ -11,18 +11,18 @@ const PORT = process.env.PORT || 3001
 const app = express()
 
 
-app.use(express.static(path.join(__dirname, 'client', 'build')))
 app.use(logger('dev'))
 app.use(helmet({ contentSecurityPolicy: false }))
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.disable('X-Powered-By')
+app.use(express.static(path.join(__dirname, 'client', 'build')))
 
 
 
 
-app.get('/', (req, res) => res.send({ msg: 'Server Working' }))
+app.get('*', (req,res)=>res.sendFile(path.join(__dirname, 'clinet', 'build','index.html')))
 
 app.use('/api', AppRouter)
 
