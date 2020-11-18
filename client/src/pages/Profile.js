@@ -170,19 +170,8 @@ export default class Profile extends Component{
                                                 <div className='dropdown-menu'>
                                                     <form className='px-4 py-3' onSubmit={this.handleCreateComment} >
                                                             <div className='form-group'>
-                                                                <label htmlFor='update'>Write Comment</label>
-                                                                <div className='form-group'>
-                                                                    <input 
-                                                                        type="text" 
-                                                                        className="form-control" 
-                                                                        placeholder="Username" 
-                                                                        name='name' 
-                                                                        value={this.state.name} 
-                                                                        onChange={this.handleChange} 
-                                                                        style={{width: 200}}
-                                                                    />
-                                                                </div>
-                                                                <div>
+                                                                <label htmlFor='update'>Update Profile Picturet</label>
+                                                                <div name={profileinf._id}>
                                                                     <Uploader {...this.props} currentUser={this.props.currentUser}/>
                                                                 </div>
                                                                 <div className='form-group'>
@@ -228,7 +217,13 @@ export default class Profile extends Component{
                                             <h6 className='userName'>{post.user_id.name}</h6>
                                             <div className='hello'>
                                                 <div className='btn-group'>
-                                                    <button  type="button" className="btn btn-primary btn-sm dropdown-toggle hello" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
+                                                    <button  
+                                                        type="button" 
+                                                        className="btn btn-primary btn-sm dropdown-toggle hello" 
+                                                        data-toggle="dropdown" 
+                                                        aria-haspopup="true" 
+                                                        aria-expanded="false"
+                                                    />
                                                     <div className='dropdown-menu'>
                                                         <a className='dropdown-item' onClick={this.DeletePost} name={post._id}>Delete</a>
                                                         <form className='px-4 py-3' onSubmit={this.handleUpdate} >
@@ -281,7 +276,15 @@ export default class Profile extends Component{
                                             <p className="card-text">{post.description}</p>
                                             <p className='like'>{post.likes} liked this post</p>
                                             {post.comments[0] ? <div className='btn-group comments'>
-                                                <input onClick={this.GetComments} onDoubleClick={this.removeComments} className="btn btn-sm s" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id={post._id} type="button" value="view comments"/>
+                                                <input 
+                                                    onClick={this.GetComments} 
+                                                    onDoubleClick={this.removeComments} 
+                                                    className="btn btn-sm s" data-toggle="dropdown" 
+                                                    aria-haspopup="true" 
+                                                    aria-expanded="false" 
+                                                    id={post._id} type="button" 
+                                                    value="view comments"
+                                                />
                                                 <div className='drop-down-menu'>
                                                     <a className='dropdown-item'>
                                                     {this.state.comments.map(comment =>(
@@ -292,9 +295,24 @@ export default class Profile extends Component{
                                                 </div>
                                             </div> : <p></p>}
                                             
-                                            <input className="btn btn-primary btn-sm h" id={post._id} name={index} onClick={this.handleLike} type="button" value="like"/>
+                                            <input 
+                                                className="btn btn-primary btn-sm h" 
+                                                id={post._id} 
+                                                name={index} 
+                                                onClick={this.handleLike} 
+                                                type="button" 
+                                                value="like"
+                                            />
                                             <div className='btn-group s'>
-                                                <input className="btn btn-primary btn-sm s" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id={post._id} type="button" value="comment"/>
+                                                <input 
+                                                    className="btn btn-primary btn-sm s" 
+                                                    data-toggle="dropdown" 
+                                                    aria-haspopup="true" 
+                                                    aria-expanded="false" 
+                                                    id={post._id} 
+                                                    type="button" 
+                                                    value="comment"
+                                                />
                                                 <div className='dropdown-menu'>
                                                     <form className='px-4 py-3' onSubmit={this.handleCreateComment} >
                                                             <div className='form-group'>
