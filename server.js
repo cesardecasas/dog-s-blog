@@ -20,9 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.disable('X-Powered-By')
 
 
-app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-)
+
 
 app.get('/', (req, res) => res.send({ msg: 'Server Working' }))
 

@@ -103,7 +103,7 @@ class Router extends Component{
                                 authenticated={this.state.authenticated}
                                 currentUser={this.state.currentUser}
                             >
-                                <MyPet/>
+                                <MyPet currentUser={this.state.currentUser}/>
                             </Layout>
                         )}
                     /> 
