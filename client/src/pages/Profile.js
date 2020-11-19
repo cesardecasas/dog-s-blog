@@ -168,7 +168,7 @@ export default class Profile extends Component{
                                                     value="Update Profile"
                                                 />
                                                 <div className='dropdown-menu'>
-                                                    <form className='px-4 py-3' onSubmit={this.handleCreateComment} >
+                                                    <form className='px-4 py-3'  >
                                                             <div className='form-group'>
                                                                 <label htmlFor='update'>Update Profile Picturet</label>
                                                                 <div name={profileinf._id}>
