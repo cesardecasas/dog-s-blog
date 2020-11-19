@@ -20,6 +20,11 @@ class MyPet extends Component{
         this.getPet()
     }
 
+    clearPosts =()=>{
+        this.setState({pets:[]})
+        this.getPet()
+    }
+
     getPet = async()=>{
         const id = this.props.currentUser._id
         try {
@@ -34,7 +39,8 @@ class MyPet extends Component{
     createPet =async(e)=>{
         e.preventDefault()
         try {
-            await __CreatePet(this.state, this.props.currentUser._id)          
+            await __CreatePet(this.state, this.props.currentUser._id)    
+            this.clearPosts()      
         } catch (error) {
             throw error
         }
