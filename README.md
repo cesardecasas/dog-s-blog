@@ -36,7 +36,7 @@ Blog especialized in your pet's life, share those funny, lovely or scary moments
 
 Install all the independencies needed with either ```npm install ``` or ``` yarn install ``` depending on your package manager.
 
-You can find the deployed link [here](https://pet-blog-p2.herokuapp.com/profile)
+You can find the deployed link [here](https://pet-blog-p2.herokuapp.com)
 
 ***
 
